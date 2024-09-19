@@ -35,4 +35,15 @@ class Board
     end
     return false
   end
+
+  def full?
+    display.each do |row|
+      row.each do |space|
+        if space == '*'
+          return false
+        end
+      end
+    end
+    return true
+  end
 end
