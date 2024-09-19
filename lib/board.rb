@@ -1,5 +1,6 @@
 class Board
   attr_reader :display
+  
   def initialize 
     @display = [
       ['*', '*', '*', '*', '*', '*', '*'],
@@ -45,5 +46,20 @@ class Board
       end
     end
     return true
+  end
+
+  def to_s
+    string = "0  1  2  3  4  5  6\n"
+    display.each do |row|
+      row.each_with_index do |space, index|
+        if index == 6
+          string = string + space
+        else
+          string = string + space + "  "
+        end
+      end
+      string = string + "\n"
+    end
+    return string
   end
 end
