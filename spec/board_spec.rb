@@ -303,4 +303,59 @@ describe Board do
       end
     end
   end
+
+  describe '#to_s' do
+    subject(:board) { described_class.new }
+    let(:p1_piece) { 'x' }
+    let(:p2_piece) { 'o' }
+    
+    context 'when the board is empty' do
+      it 'returns an empty board string' do
+        expect(board.to_s).to eq(
+          "0  1  2  3  4  5  6\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n"  
+          )
+      end
+    end
+
+    context 'when the board is partially filled' do
+      it 'returns the partially filled board string' do
+        for i in 1..6 do
+          board.update(6, p1_piece)
+        end
+        for i in 1..5 do
+          board.update(1, p1_piece)
+        end
+        for i in 1..4 do
+          board.update(3, p1_piece)
+        end
+        for i in 1..3 do
+          board.update(2, p1_piece)
+        end
+        for i in 1..2 do
+          board.update(4, p1_piece)
+        end
+        board.update(0, p1_piece)
+        expect(board.to_s).to eq(
+          "0  1  2  3  4  5  6\n*  *  *  *  *  *  x\n*  x  *  *  *  *  x\n*  x  *  x  *  *  x\n*  x  x  x  *  *  x\n*  x  x  x  x  *  x\nx  x  x  x  x  *  x\n"  
+          )
+      end
+    end
+
+    context 'when the board is full' do
+      it 'returns a full board string' do
+        for i in 1..6 do
+          board.update(0, p2_piece)
+          board.update(1, p2_piece)
+          board.update(2, p2_piece)
+          board.update(3, p2_piece)
+          board.update(4, p2_piece)
+          board.update(5, p2_piece)
+          board.update(6, p2_piece)
+        end
+        expect(board.to_s).to eq(
+          "0  1  2  3  4  5  6\no  o  o  o  o  o  o\no  o  o  o  o  o  o\no  o  o  o  o  o  o\no  o  o  o  o  o  o\no  o  o  o  o  o  o\no  o  o  o  o  o  o\n"  
+          )
+      end
+    end
+  end
 end
