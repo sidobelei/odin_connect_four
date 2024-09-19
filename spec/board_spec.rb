@@ -191,4 +191,46 @@ describe Board do
       end
     end
   end
+
+  describe '#valid_move?' do
+    subject(:board) {described_class.new}
+    let(:p1_piece) { 'x' }
+    context 'when you place a piece in an empty column' do
+      it 'returns true' do
+        expect(board.valid_move?(3)).to be(true)
+      end
+    end
+
+    context 'when you place a piece in a partially filled column' do
+      it 'returns true' do
+        for i in 1..4 do
+          board.update(4, p1_piece)
+        end
+        expect(board.valid_move?(4)).to be(true)
+      end
+    end
+
+    context 'when you place a piece in a full column' do
+      it 'returns false' do
+        for i in 1..6 do
+          board.update(4, p1_piece)
+        end
+        expect(board.valid_move?(4)).to be(false)
+      end
+    end
+
+    context 'when you give an invalid location' do
+      context 'when you give a negative numbered column' do
+        it 'returns false' do
+          expect(board.valid_move?(-1)).to be(false)
+        end
+      end
+
+      context 'when you give a column location larger than 6' do
+        it 'returns false' do
+          expect(board.valid_move?(300)).to be(false)
+        end
+      end
+    end
+  end
 end
