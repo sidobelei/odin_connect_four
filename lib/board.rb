@@ -1,5 +1,5 @@
 class Board
-  attr_reader :display
+  attr_accessor :display
   
   def initialize 
     @display = [
@@ -37,6 +37,22 @@ class Board
     return false
   end
 
+  def check_vertically(row, index, piece)
+    count = 0
+    until count == 4
+      if display[row][index] == piece
+        count += 1
+        if row + 1 > 5 && count != 4
+          return false
+        end
+        row += 1
+      else
+        return false
+      end
+    end
+    return true
+  end
+  
   def full?
     display.each do |row|
       row.each do |space|
