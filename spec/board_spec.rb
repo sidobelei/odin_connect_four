@@ -326,6 +326,98 @@ describe Board do
     end
   end
 
+  describe '#check_horizontally' do
+    subject(:board) { described_class.new }
+    let(:p1_piece) { 'x' }
+    let(:p2_piece) { 'o' }
+
+    context 'when checking for horizontal wins' do
+      it 'detects a horizontal win at the left most side of the row' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          [p1_piece, p1_piece, p1_piece, p1_piece, '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_horizontally(2, 0, p1_piece)).to be(true)
+      end
+
+      it 'detects a horizontal win in the middle of a row' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', p1_piece, p1_piece, p1_piece, p1_piece, '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_horizontally(2, 2, p1_piece)).to be(true)
+      end
+
+      it 'detects a horizontal win at the right most side of the row' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', p1_piece, p1_piece, p1_piece, p1_piece],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_horizontally(2, 3, p1_piece)).to be(true)
+      end
+
+      it 'detects a horizontal win in the first row' do
+        board.display = [
+          ['*', p1_piece, p1_piece, p1_piece, p1_piece, '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_horizontally(0, 1, p1_piece)).to be(true)
+      end
+
+      it 'detects a horizontal win in the last row' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', p1_piece, p1_piece, p1_piece, p1_piece, '*', '*']
+        ]
+        expect(board.check_horizontally(5, 1, p1_piece)).to be(true)
+      end
+
+      it 'detects a horizontal win in a partially filled board' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', p1_piece, p1_piece, p1_piece, p1_piece, '*'],
+          ['*', '*', p2_piece, p1_piece, p2_piece, p2_piece, '*'],
+          ['*', '*', p2_piece, p1_piece, p2_piece, p1_piece, '*']
+        ]
+        expect(board.check_horizontally(3, 2, p1_piece)).to be(true)
+      end
+
+      it 'does not detect a win an empty board' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_horizontally(3, 1, p1_piece)).to be(false)
+      end
+    end
+  end
+
   describe '#full?' do
     subject(:board) { described_class.new }
     let(:p2_piece) {'o'}
