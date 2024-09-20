@@ -52,6 +52,22 @@ class Board
     end
     return true
   end
+
+  def check_horizontally(row, index, piece)
+    count = 0
+    until count == 4
+      if display[row][index] == piece
+        count += 1
+        if index + 1 > 6 && count != 4
+          return false
+        end
+        index += 1
+      else
+        return false
+      end
+    end
+    return true
+  end
   
   def full?
     display.each do |row|
