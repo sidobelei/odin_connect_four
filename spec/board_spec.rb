@@ -234,6 +234,98 @@ describe Board do
     end
   end
 
+  describe '#check_vertically' do
+    subject(:board) { described_class.new }
+    let(:p1_piece) { 'x' }
+    let(:p2_piece) { 'o' }
+    
+    context 'when checking for vertical wins' do
+      it 'detects a vertical win at the top of the column' do
+        board.display = [
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_vertically(0, 3, p1_piece)).to be(true)
+      end
+
+      it 'detects a vertical win in the middle of a column' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_vertically(1, 3, p1_piece)).to be(true)
+      end
+
+      it 'detects a vertical win at the bottom of a column' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*']
+        ]
+        expect(board.check_vertically(2, 3, p1_piece)).to be(true)
+      end
+
+      it 'detects a vertical win in the first column' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          [p1_piece, '*', '*', '*', '*', '*', '*'],
+          [p1_piece, '*', '*', '*', '*', '*', '*'],
+          [p1_piece, '*', '*', '*', '*', '*', '*'],
+          [p1_piece, '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_vertically(1, 0, p1_piece)).to be(true)
+      end
+
+      it 'detects a vertical win in the last column' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', p1_piece],
+          ['*', '*', '*', '*', '*', '*', p1_piece],
+          ['*', '*', '*', '*', '*', '*', p1_piece],
+          ['*', '*', '*', '*', '*', '*', p1_piece],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_vertically(1, 6, p1_piece)).to be(true)
+      end
+
+      it 'detects a vertical win in a partially filled board' do
+        board.display = [
+          ['*', p1_piece, '*', '*', '*', '*', '*'],
+          ['*', p1_piece, '*', '*', '*', '*', '*'],
+          ['*', p1_piece, '*', '*', '*', '*', '*'],
+          ['*', p1_piece, '*', '*', '*', '*', '*'],
+          ['*', p2_piece, '*', '*', '*', '*', '*'],
+          [p2_piece, p1_piece, p2_piece, p2_piece, p1_piece, p2_piece, '*']
+        ]
+        expect(board.check_vertically(0, 1, p1_piece)).to be(true)
+      end
+      
+      it 'does not detect a vertical win if the board is empty' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_vertically(1, 1, p1_piece)).to be(false)
+      end
+    end
+  end
+
   describe '#full?' do
     subject(:board) { described_class.new }
     let(:p2_piece) {'o'}
