@@ -68,6 +68,23 @@ class Board
     end
     return true
   end
+
+  def check_diagonal_ascending(row, index, piece)
+    count = 0
+    until count == 4
+      if display[row][index] == piece
+        count += 1
+        if count != 4 && (row + 1 < 0 || index - 1 < 0)
+          return false
+        end
+        row += 1
+        index -= 1
+      else
+        return false
+      end
+    end
+    return true
+  end
   
   def full?
     display.each do |row|
