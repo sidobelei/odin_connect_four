@@ -510,6 +510,98 @@ describe Board do
     end
   end
 
+  describe 'check_diagonal_descending' do
+    subject(:board) { described_class.new }
+    let(:p1_piece) { 'x' }
+    let(:p2_piece) { 'o' }
+
+    context 'when checking for descending diagonal wins' do
+      it 'detects an descending diagonal win starting from the bottom-right' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', '*', p1_piece, '*', '*'],
+          ['*', '*', '*', '*', '*', p1_piece, '*'],
+          ['*', '*', '*', '*', '*', '*', p1_piece]
+        ]
+        expect(board.check_diagonal_descending(2, 3, p1_piece)).to be(true)
+      end
+
+      it 'detects an descending diagonal win starting from the middle' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', p1_piece, '*', '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', '*', p1_piece, '*', '*'],
+          ['*', '*', '*', '*', '*', p1_piece, '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_diagonal_descending(1, 2, p1_piece)).to be(true)
+      end
+
+      it 'detects an descending diagonal win starting from the top-left' do
+        board.display = [
+          [p1_piece, '*', '*', '*', '*', '*', '*'],
+          ['*', p1_piece, '*', '*', '*', '*', '*'],
+          ['*', '*', p1_piece, '*', '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_diagonal_descending(0, 0, p1_piece)).to be(true)
+      end
+
+      it 'detects the leftmost descending diagonal win' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          [p1_piece, '*', '*', '*', '*', '*', '*'],
+          ['*', p1_piece, '*', '*', '*', '*', '*'],
+          ['*', '*', p1_piece, '*', '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*']
+        ]
+        expect(board.check_diagonal_descending(2, 0, p1_piece)).to be(true)
+      end
+
+      it 'detects the rightmost descending diagonal win' do
+        board.display = [
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', '*', p1_piece, '*', '*'],
+          ['*', '*', '*', '*', '*', p1_piece, '*'],
+          ['*', '*', '*', '*', '*', '*', p1_piece],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_diagonal_descending(0, 3, p1_piece)).to be(true)
+      end
+
+      it 'detects a descending diagonal win when the board is partially filled' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', p1_piece, '*', '*', '*', '*'],
+          ['*', '*', p2_piece, p1_piece, '*', '*', '*'],
+          ['*', '*', p2_piece, p1_piece, p1_piece, '*', '*'],
+          ['*', p1_piece, p2_piece, p2_piece, p2_piece, p1_piece, '*']
+        ]
+        expect(board.check_diagonal_descending(2, 2, p1_piece)).to be(true)
+      end
+
+      it 'does not detect a descending diagonal win' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_diagonal_descending(1, 0, p1_piece)).to be(false)
+      end
+    end
+  end
+
   describe '#full?' do
     subject(:board) { described_class.new }
     let(:p2_piece) {'o'}
