@@ -37,6 +37,23 @@ class Board
     return false
   end
 
+  def four_in_a_row?(piece)
+    display.each_with_index do |row, row_index|
+      puts "Row:#{row_index} #{row}"
+      row.each_with_index do |space, index|
+        puts "#{space} Index #{index}"
+        if space == '*' || space != piece
+          next
+        else
+          if check_vertically(row_index, index, piece) || check_horizontally(row_index, index, piece) || check_diagonal_ascending(row_index, index, piece) || check_diagonal_descending(row_index, index, piece)
+            return true
+          end
+        end
+      end
+    end
+    return false
+  end
+
   def check_vertically(row, index, piece)
     count = 0
     until count == 4
@@ -74,7 +91,7 @@ class Board
     until count == 4
       if display[row][index] == piece
         count += 1
-        if count != 4 && (row + 1 < 0 || index - 1 < 0)
+        if count != 4 && (row + 1 > 5 || index - 1 < 0)
           return false
         end
         row += 1
