@@ -602,6 +602,96 @@ describe Board do
     end
   end
 
+  describe 'four_in_a_row?' do
+    subject(:board) { described_class.new }
+    let(:p1_piece) { 'x' }
+    let(:p2_piece) { 'o' }
+
+    context 'when there is a horizontal win on a filled board' do
+      it 'detects a four-in-a-row' do
+        board.display = [
+          [p1_piece, p2_piece, '*', p2_piece, p1_piece, p2_piece, '*'],
+          [p2_piece, p1_piece, '*', p2_piece, p1_piece, p1_piece, '*'],
+          [p1_piece, p2_piece, '*', p1_piece, p2_piece, p2_piece, '*'],
+          [p2_piece ,p1_piece, p1_piece, p1_piece, p1_piece, p1_piece, '*'],
+          [p1_piece, p2_piece, p1_piece, p1_piece, p2_piece, p2_piece, p2_piece],
+          [p2_piece, p1_piece, p2_piece, p2_piece, p2_piece, p1_piece, p1_piece]
+        ]
+        expect(board.four_in_a_row?(p1_piece)).to be(true)
+      end
+    end
+
+    context 'when there is a vertical win on a filled board' do
+      it 'detects a four-in-a-row' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', '*', p1_piece, '*', '*', '*'],
+          ['*', '*', p2_piece, p1_piece, '*', '*', '*'],
+          ['*', '*', p2_piece, p1_piece, '*', '*', '*'],
+          [p1_piece, p2_piece, p2_piece, p2_piece, p1_piece, '*', '*']
+        ]
+        expect(board.four_in_a_row?(p1_piece)).to be(true)
+      end
+    end
+
+    context 'when there is an ascending diagonal win on a filled board' do
+      it 'detects a four-in-a-row' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', p2_piece, '*', '*', p1_piece, '*'],
+          ['*', '*', p2_piece, '*', p1_piece, p1_piece, '*'],
+          ['*', '*', p2_piece, p1_piece, p2_piece, p2_piece, '*'],
+          ['*', '*', p1_piece, p2_piece, p1_piece, p1_piece, '*']
+        ]
+        expect(board.four_in_a_row?(p1_piece)).to be(true)
+      end
+    end
+
+    context 'when there is a descending diagonal win on a filled board' do
+      it 'detects a four-in-a-row' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          [p1_piece, '*', '*', '*', '*', '*', '*'],
+          [p2_piece, p1_piece, '*', '*', '*', '*', '*'],
+          [p1_piece, p2_piece, p1_piece, p2_piece, '*', '*', '*'],
+          [p2_piece, p1_piece, p2_piece, p1_piece, '*', '*', '*']
+        ]
+        expect(board.four_in_a_row?(p1_piece)).to be(true)
+      end
+    end
+
+    context 'when the board is full but there is no four-in-a-row' do
+      it 'does not detect a four-in-a-row' do
+        board.display = [
+        [p2_piece, p1_piece, p2_piece, p2_piece, p1_piece, p2_piece, p1_piece],
+        [p1_piece, p2_piece, p1_piece, p2_piece, p1_piece, p1_piece, p2_piece],
+        [p2_piece, p1_piece, p2_piece, p1_piece, p2_piece, p1_piece, p2_piece],
+        [p1_piece, p2_piece, p2_piece, p1_piece, p2_piece, p1_piece, p1_piece],
+        [p2_piece, p1_piece, p1_piece, p2_piece, p1_piece, p2_piece, p2_piece],
+        [p1_piece, p2_piece, p2_piece, p1_piece, p2_piece, p1_piece, p1_piece]
+      ]
+      expect(board.four_in_a_row?(p1_piece)).to be(false)
+      end
+    end
+
+    context 'when the board is empty' do
+      it 'does not detect a four-in-a-row' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.four_in_a_row?(p1_piece)).to be(false)
+      end
+    end
+  end
+
   describe '#full?' do
     subject(:board) { described_class.new }
     let(:p2_piece) {'o'}
