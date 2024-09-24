@@ -312,6 +312,18 @@ describe Board do
         expect(board.check_vertically(0, 1, p1_piece)).to be(true)
       end
       
+      it 'does not detect a vertical win if there are only three pieces at an edge' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', p1_piece, '*'],
+          ['*', '*', '*', '*', '*', p1_piece, '*'],
+          ['*', '*', '*', '*', '*', p1_piece, '*']
+        ]
+        expect(board.check_vertically(5, 5, p1_piece)).to be(false)
+      end
+      
       it 'does not detect a vertical win if the board is empty' do
         board.display = [
           ['*', '*', '*', '*', '*', '*', '*'],
@@ -402,6 +414,18 @@ describe Board do
           ['*', '*', p2_piece, p1_piece, p2_piece, p1_piece, '*']
         ]
         expect(board.check_horizontally(3, 2, p1_piece)).to be(true)
+      end
+      
+      it 'does not detect a horizontal win if there are only three pieces at an edge' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', p1_piece, p1_piece, p1_piece],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_horizontally(4, 4, p1_piece)).to be(false)
       end
 
       it 'does not detect a win an empty board' do
@@ -496,6 +520,18 @@ describe Board do
         expect(board.check_diagonal_ascending(2, 4, p1_piece)).to be(true)
       end
 
+      it 'does not detect an ascending diagonal win if there are only three pieces at an edge' do
+        board.display = [
+          ['*', '*', p1_piece, '*', '*', '*', '*'],
+          ['*', p1_piece, '*', '*', '*', '*', '*'],
+          [p1_piece, '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*']
+        ]
+        expect(board.check_diagonal_ascending(0, 2, p1_piece)).to be(false)
+      end
+
       it 'does not detect an ascending diagonal win on an empty board' do
         board.display = [
           ['*', '*', '*', '*', '*', '*', '*'],
@@ -588,6 +624,18 @@ describe Board do
         expect(board.check_diagonal_descending(2, 2, p1_piece)).to be(true)
       end
 
+      it 'does not detect a descending diagonal win if there are only three pieces at an edge' do
+        board.display = [
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          ['*', '*', '*', '*', '*', '*', '*'],
+          [p1_piece, '*', '*', '*', '*', '*', '*'],
+          ['*', p1_piece, '*', '*', '*', '*', '*'],
+          ['*', '*', p1_piece, '*', '*', '*', '*']
+        ]
+        expect(board.check_diagonal_descending(3, 0, p1_piece)).to be(false)
+      end
+      
       it 'does not detect a descending diagonal win' do
         board.display = [
           ['*', '*', '*', '*', '*', '*', '*'],
