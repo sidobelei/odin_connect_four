@@ -1,7 +1,7 @@
 require_relative '../lib/game'
 
 describe Game do
-  describe 'initialize' do 
+  describe '#initialize' do 
     subject(:new_game) { described_class.new }
     context 'when an instance of Game is initialized' do
       it 'creates an array of two player objects' do
@@ -11,6 +11,33 @@ describe Game do
       end
       it 'creates a board object' do
         expect(new_game.board).to be_an_instance_of(Board) 
+      end
+    end
+  end
+
+  describe '#get_move' do
+    subject(:game) { described_class.new }
+    let(:player) { game.players[0].name }
+    context 'when a valid move is made' do
+      before do
+        allow_any_instance_of(Kernel).to receive(:print)
+        allow_any_instance_of(Kernel).to receive(:gets).and_return("3")
+        allow(game.board).to receive(:valid_move?).and_return(true)
+      end
+      it 'returns the valid move' do
+        expect(game.get_move(player)).to eq(3)
+      end
+    end
+
+    context 'when an invalid move is made 3 times then a valid move is made' do
+      before do
+        allow_any_instance_of(Kernel).to receive(:gets).and_return("70", "45", "1000", "6")
+        allow(game.board).to receive(:valid_move?).and_return(false, false, false, true)
+        allow_any_instance_of(Kernel).to receive(:print)
+      end
+      it 'calls valid_move? 4 times then returns a valid move' do
+        expect(game.board).to receive(:valid_move?).exactly(4).times
+        expect(game.get_move(player)).to eq(6)
       end
     end
   end
