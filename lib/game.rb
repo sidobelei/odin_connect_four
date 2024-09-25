@@ -2,7 +2,8 @@ require_relative 'board'
 require_relative 'player'
 
 class Game
-  attr_reader :players, :board
+  attr_reader :players, :board 
+  attr_accessor :winner, :game_over
 
   def initialize
     @players = [
@@ -23,5 +24,13 @@ class Game
       valid_move = board.valid_move?(move)
     end
     return move
+  end
+
+  def declare_winner
+    if winner
+      puts "\n#{winner} is the winner!"
+    else
+      puts "\nIt's a tie!"
+    end 
   end
 end
