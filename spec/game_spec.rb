@@ -3,6 +3,7 @@ require_relative '../lib/game'
 describe Game do
   describe '#initialize' do 
     subject(:new_game) { described_class.new }
+    
     context 'when an instance of Game is initialized' do
       it 'creates an array of two player objects' do
         expect(new_game.players.length).to eq(2)
@@ -18,6 +19,7 @@ describe Game do
   describe '#get_move' do
     subject(:game) { described_class.new }
     let(:player) { game.players[0].name }
+
     context 'when a valid move is made' do
       before do
         allow_any_instance_of(Kernel).to receive(:print)
@@ -38,6 +40,24 @@ describe Game do
       it 'calls valid_move? 4 times then returns a valid move' do
         expect(game.board).to receive(:valid_move?).exactly(4).times
         expect(game.get_move(player)).to eq(6)
+      end
+    end
+  end
+
+  describe '#declare_winner' do
+    subject(:game) { described_class.new }
+    let(:winner) { 'Player One' }
+
+    context 'when there is a winner' do
+      it 'prints the player who wins' do
+        game.instance_variable_set(:@winner, winner)
+        expect { game.declare_winner }.to output("\n#{winner} is the winner!\n").to_stdout
+      end
+    end
+
+    context 'when there is no winner' do
+      it "prints 'It's a tie!'" do
+        expect { game.declare_winner }.to output("\nIt's a tie!\n").to_stdout
       end
     end
   end
