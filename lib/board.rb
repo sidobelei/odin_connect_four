@@ -39,9 +39,7 @@ class Board
 
   def four_in_a_row?(piece)
     display.each_with_index do |row, row_index|
-      puts "Row:#{row_index} #{row}"
       row.each_with_index do |space, index|
-        puts "#{space} Index #{index}"
         if space == '*' || space != piece
           next
         else
