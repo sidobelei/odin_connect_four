@@ -51,7 +51,7 @@ describe Game do
     context 'when there is a winner' do
       it 'prints the player who wins' do
         game.instance_variable_set(:@winner, winner)
-        expect { game.declare_winner }.to output("\n#{winner} is the winner!\n").to_stdout
+        expect { game.declare_winner }.to output("\n#{winner} wins!\n").to_stdout
       end
     end
 
@@ -96,7 +96,7 @@ describe Game do
       end
 
       it 'declares player one as the winner' do
-        expect(game).to receive(:declare_winner).and_return('\nPlayer One is a winner!\n')
+        expect(game).to receive(:declare_winner).and_return('\nPlayer One wins!\n')
         game.play_game
       end
     end
@@ -118,7 +118,7 @@ describe Game do
       end
 
       it 'declares player two as the winner' do
-        expect(game).to receive(:declare_winner).and_return("\nPlayer Two is the winner!\n")
+        expect(game).to receive(:declare_winner).and_return("\nPlayer Two wins!\n")
         game.play_game
       end
     end

@@ -48,7 +48,7 @@ class Game
 
   def declare_winner
     if winner
-      puts "\n#{winner} is the winner!"
+      puts "\n#{winner} wins!"
     else
       puts "\nIt's a tie!"
     end 
