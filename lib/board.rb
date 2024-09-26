@@ -130,7 +130,7 @@ class Board
   end
 
   def to_s
-    string = "0  1  2  3  4  5  6\n"
+    string = "\n0  1  2  3  4  5  6\n"
     display.each do |row|
       row.each_with_index do |space, index|
         if index == 6

@@ -818,7 +818,7 @@ describe Board do
     context 'when the board is empty' do
       it 'returns an empty board string' do
         expect(board.to_s).to eq(
-          "0  1  2  3  4  5  6\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n"  
+          "\n0  1  2  3  4  5  6\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n*  *  *  *  *  *  *\n"  
           )
       end
     end
@@ -842,7 +842,7 @@ describe Board do
         end
         board.update(0, p1_piece)
         expect(board.to_s).to eq(
-          "0  1  2  3  4  5  6\n*  *  *  *  *  *  x\n*  x  *  *  *  *  x\n*  x  *  x  *  *  x\n*  x  x  x  *  *  x\n*  x  x  x  x  *  x\nx  x  x  x  x  *  x\n"  
+          "\n0  1  2  3  4  5  6\n*  *  *  *  *  *  x\n*  x  *  *  *  *  x\n*  x  *  x  *  *  x\n*  x  x  x  *  *  x\n*  x  x  x  x  *  x\nx  x  x  x  x  *  x\n"  
           )
       end
     end
@@ -859,7 +859,7 @@ describe Board do
           board.update(6, p2_piece)
         end
         expect(board.to_s).to eq(
-          "0  1  2  3  4  5  6\no  o  o  o  o  o  o\no  o  o  o  o  o  o\no  o  o  o  o  o  o\no  o  o  o  o  o  o\no  o  o  o  o  o  o\no  o  o  o  o  o  o\n"  
+          "\n0  1  2  3  4  5  6\no  o  o  o  o  o  o\no  o  o  o  o  o  o\no  o  o  o  o  o  o\no  o  o  o  o  o  o\no  o  o  o  o  o  o\no  o  o  o  o  o  o\n"  
           )
       end
     end
