@@ -14,7 +14,27 @@ class Game
     @game_over = false
     @winner = nil
   end
-  
+
+  def play_game 
+    until game_over
+      players.each do |player|
+          puts board
+          move = get_move(player.name)
+          board.update(move, player.game_piece)
+          if board.four_in_a_row?(player.game_piece)      
+              @game_over = true
+              @winner = player.name
+              break
+          elsif board.full?    
+              @game_over = true
+              break
+          end
+      end
+    end
+    puts board
+    declare_winner
+  end
+
   def get_move(player)
     valid_move = false
     until valid_move
