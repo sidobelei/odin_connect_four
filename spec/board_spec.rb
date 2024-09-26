@@ -105,7 +105,7 @@ describe Board do
 
     context 'when you place a piece in a column that is half filled' do
       it 'it can place a piece in the furtherest left column' do
-        for i in 1..3 do
+        3.times do
           board.update(0, p1_piece)
         end
         expect{ board.update(0, p1_piece) }.to change{ board.display }.to([
@@ -119,7 +119,7 @@ describe Board do
       end
 
       it 'it can place a piece in the middle column' do
-        for i in 1..3 do
+        3.times do
           board.update(3, p1_piece)
         end
         expect{ board.update(3, p1_piece) }.to change{ board.display }.to([
@@ -133,7 +133,7 @@ describe Board do
       end
 
       it 'it can place a piece in the furthest right column' do
-        for i in 1..3 do
+        3.times do
           board.update(6, p1_piece)
         end
         expect{ board.update(6, p1_piece) }.to change{ board.display }.to([
@@ -149,7 +149,7 @@ describe Board do
 
     context 'when you place a piece in a column that is nearly filled' do
       it 'it can place a piece in the furtherest left column' do
-        for i in 1..5 do
+        5.times do
           board.update(0, p1_piece)
         end
         expect{ board.update(0, p1_piece) }.to change{ board.display }.to([
@@ -163,7 +163,7 @@ describe Board do
       end
 
       it 'it can place a piece in the middle column' do
-        for i in 1..5 do
+        5.times do
           board.update(3, p1_piece)
         end
         expect{ board.update(3, p1_piece) }.to change{ board.display }.to([
@@ -177,7 +177,7 @@ describe Board do
       end
 
       it 'it can place a piece in the furthest right column' do
-        for i in 1..5 do
+        5.times do
           board.update(6, p1_piece)
         end
         expect{ board.update(6, p1_piece) }.to change{ board.display }.to([
@@ -195,6 +195,7 @@ describe Board do
   describe '#valid_move?' do
     subject(:board) {described_class.new}
     let(:p1_piece) { 'x' }
+
     context 'when you place a piece in an empty column' do
       it 'returns true' do
         expect(board.valid_move?(3)).to be(true)
@@ -203,7 +204,7 @@ describe Board do
 
     context 'when you place a piece in a partially filled column' do
       it 'returns true' do
-        for i in 1..4 do
+        4.times do
           board.update(4, p1_piece)
         end
         expect(board.valid_move?(4)).to be(true)
@@ -212,7 +213,7 @@ describe Board do
 
     context 'when you place a piece in a full column' do
       it 'returns false' do
-        for i in 1..6 do
+        6.times do
           board.update(4, p1_piece)
         end
         expect(board.valid_move?(4)).to be(false)
@@ -760,14 +761,14 @@ describe Board do
 
       context 'when half the board is filled' do
         it 'returns false' do
-          for i in 1..6 do
+          6.times do
             board.update(0, p2_piece)
           end
-          for i in 1..4 do
+          4.times do
             board.update(1, p2_piece)
             board.update(2, p2_piece)
           end
-          for i in 1..3 do
+          3.times do
             board.update(3, p2_piece)
             board.update(4, p2_piece)
           end
@@ -778,7 +779,7 @@ describe Board do
 
       context 'when there is only one space to be filled' do
         it 'return false' do
-          for i in 1..6 do
+          6.times do
             board.update(0, p2_piece)
             board.update(1, p2_piece)
             board.update(3, p2_piece)
@@ -786,7 +787,7 @@ describe Board do
             board.update(5, p2_piece)
             board.update(6, p2_piece)
           end
-          for i in 1..5 do
+          5.times do
             board.update(2, p2_piece)
           end
           expect(board.full?).to be(false)
@@ -796,7 +797,7 @@ describe Board do
 
     context 'when the board is full' do
       it 'returns true' do
-        for i in 1..6 do
+        6.times do
           board.update(0, p2_piece)
           board.update(1, p2_piece)
           board.update(2, p2_piece)
@@ -825,19 +826,19 @@ describe Board do
 
     context 'when the board is partially filled' do
       it 'returns the partially filled board string' do
-        for i in 1..6 do
+        6.times do
           board.update(6, p1_piece)
         end
-        for i in 1..5 do
+        5.times do
           board.update(1, p1_piece)
         end
-        for i in 1..4 do
+        4.times do
           board.update(3, p1_piece)
         end
-        for i in 1..3 do
+        3.times do
           board.update(2, p1_piece)
         end
-        for i in 1..2 do
+        2.times do
           board.update(4, p1_piece)
         end
         board.update(0, p1_piece)
@@ -849,7 +850,7 @@ describe Board do
 
     context 'when the board is full' do
       it 'returns a full board string' do
-        for i in 1..6 do
+        6.times do
           board.update(0, p2_piece)
           board.update(1, p2_piece)
           board.update(2, p2_piece)
